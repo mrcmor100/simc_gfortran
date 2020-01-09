@@ -58,6 +58,7 @@
 	type(EXP_field)::	EXPER
 	logical mc_smear
 	logical debug(6)
+	real*8 p_change
 	integer*4 nevent, ntried, ngen, deForest_flag, Nntu
 	integer*4 ncontribute, npasscuts, ncontribute_no_rad_proton, spect_mode, phsp_mode
 	character base*40
@@ -87,7 +88,7 @@
      >    gen, spec, cuts, edge, VERTEXedge, SPedge,
      >    slop, EXPER, mc_smear, debug, nevent, ntried, ngen,
      >    deForest_flag, Nntu, ncontribute, npasscuts, ncontribute_no_rad_proton, 
-     >    spect_mode, phsp_mode, base,
+     >    spect_mode, p_change, phsp_mode, base,
      >    extra_dbase_file,tgt_field_file,using_E_arm_montecarlo,using_P_arm_montecarlo,
      >    doing_phsp, using_rad, hard_cuts, doing_hyd_elast, doing_deuterium, doing_heavy,
      >    doing_eep, doing_pion, doing_delta, doing_kaon, doing_rho, doing_semi,
