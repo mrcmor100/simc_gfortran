@@ -1,7 +1,7 @@
 	subroutine mc_shms(p_spec, th_spec, dpp, x, y, z, dxdz, dydz,
      >			x_fp,dx_fp,y_fp,dy_fp,m2,
      >		ms_flag, wcs_flag, decay_flag, resmult, fry, ok_spec, 
-     >         pathlen, spectr)
+     >         pathlen, spectr, p_change)
 
 C+______________________________________________________________________________
 !
@@ -533,6 +533,7 @@ c           pathlen=tpathlen
            spec(9)=xs
            spec(10)=ys
 
+	   p = p * p_change  !Change momentum
 
 ! Go to Q1 Mag entrance
 	   call transp(spectr,6,decay_flag,dflag,m2,p,
@@ -577,6 +578,8 @@ c           pathlen=tpathlen
 		 stop_id = 9
 		 goto 500
 	      endif
+
+	      p = p / p_change !Change Momentum!!!
 
 ! Go to Q2 IN  Mech entrance
 	   call transp(spectr,10,decay_flag,dflag,m2,p,
@@ -648,6 +651,8 @@ c           pathlen=tpathlen
            spec(13)=xs
            spec(14)=ys
 
+	   p = p * p_change !Change momentum!!!
+
 ! Go to Q3 Mag entrance
 	   call transp(spectr,16,decay_flag,dflag,m2,p,
      >     zd_q3men,pathlen)
@@ -691,6 +696,8 @@ c           pathlen=tpathlen
 		 stop_id = 19
 		 goto 500
 	      endif
+
+	      p = p / p_change  !Change momentum!!
 
 
 

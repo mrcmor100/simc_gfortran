@@ -948,6 +948,7 @@ C DJG:
 	ierr = regparmint('hard_cuts',hard_cuts,0)
 	ierr = regparmint('using_rad',using_rad,0)
 	ierr = regparmint('spect_mode',spect_mode,0)
+	ierr = regparmdouble('p_change',p_change,0)
 	ierr = regparmint('doing_phsp',doing_phsp,0)
 	ierr = regparmdouble('cuts%Em%min',cuts%Em%min,0)
 	ierr = regparmdouble('cuts%Em%max',cuts%Em%max,0)
