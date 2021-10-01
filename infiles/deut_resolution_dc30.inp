@@ -57,8 +57,7 @@ end parm e_arm_accept
 
 begin parm p_arm_accept
   SPedge%p%delta%min = -99.9 ;  delta min (SPECTROMETER ACCEPTANCE!)
-  SPedge%p%delta%max =  70.0 ;  delta max
-;Factor of 10 to xptar and yptar
+  SPedge%p%delta%max =  70.0 ;  delta max Factor of 10 to xptar and yptar
   SPedge%p%yptar%min = -700.0 ;  yptar min = {TF} / 1000 (mrad)
   SPedge%p%yptar%max =  700.0 ;  yptar max = {TF} / 1000
   SPedge%p%xptar%min = -700.0 ;  xptar min = {TF} / 1000 (mrad)
