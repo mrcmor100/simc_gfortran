@@ -196,13 +196,23 @@ C DJG:
 	   doing_deutrho = (nint(targ%A).eq.2)
 	   doing_herho = (nint(targ%A).eq.3)
 	   doing_eep=.false.
-
-	else		!doing_eep if nothing else set.
-	  Mh=Mp
-	  doing_eep = .true.
-	  doing_hyd_elast = (nint(targ%A).eq.1)
-	  doing_deuterium = (nint(targ%A).eq.2)
-	  doing_heavy = (nint(targ%A).ge.3)
+	else
+	   Mh=Mp
+	   doing_eep = .true.
+!JRA: Nuclear elastic test hack [M=nuclear mss, Mrec=0 is 'flag' for Nuc Elas]
+! better long term solution is having doing_eep AND doing_elast flags.
+	  if (abs(targ%mrec_amu).le.1.e-5) then
+	    doing_hyd_elast = .true.
+	    if (nint(targ%A).ne.1) then
+	      write(6,*) 'eep with Mtar=Mrec<>Mp: FORCED TO BE NUCLEAR ELASTIC'
+	      Mh = targ%mass_amu*amu  !(targ%M not calculated until later)
+	    endif
+!JRA: End hack
+	  else			!doing_eep if nothing else set.
+	     doing_hyd_elast = (nint(targ%A).eq.1)
+	     doing_deuterium = (nint(targ%A).eq.2)
+	     doing_heavy = (nint(targ%A).ge.3)
+	  endif
 	endif
 
 	Mh2 = Mh*Mh
@@ -255,10 +265,14 @@ C DJG:
 ! ... improve precision for hydrogen and deuterium targets.  For deuterium,
 ! ... need to wait to fill targ.Mrec until we know which nucleon was struck.
 
+!JRA: Nuclear Elastic - don't set Mrec=M-Mp if doing nuclear elastic
 	if (nint(targ%A).eq.1) then	 !proton target
 	  if (abs(targ%M-Mp).gt.0.1) write(6,*) 'WARNING: forcing target mass to Mp!!!'
 	  if (abs(targ%Mrec).gt.0.1) write(6,*) 'WARNING: forcing recoil mass to zero!!!'
 	  targ%M = Mp
+	  targ%Mrec = 0.
+	else if (doing_hyd_elast) then
+	  write(6,*) 'NUCLEAR ELASTIC - WILL NOT ADJUST TARGET MASS'
 	  targ%Mrec = 0.
 	else if (nint(targ%A).eq.2) then !deuterium target
 	  if (abs(targ%M-Md).gt.0.1) write(6,*) 'WARNING: forcing target mass to Md!!!'
